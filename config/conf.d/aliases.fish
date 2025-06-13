@@ -17,6 +17,10 @@ if type -q icdiff
     alias diff icdiff
 end
 
+if type -q screen
+    alias screen "screen -s fish -U"
+end
+
 if type -q jaq
     alias jq jaq
 end
@@ -40,8 +44,4 @@ end
 if type -q uv
     alias scour "uvx scour"
     alias rsyncy "uvx rsyncy"
-end
-
-if test -f /Applications/Tailscale.app/Contents/MacOS/Tailscale
-    alias tailscale "/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 end

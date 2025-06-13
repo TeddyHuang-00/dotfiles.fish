@@ -1,3 +1,15 @@
+# Platform specific configuration for Fish shell
+switch (uname -o)
+    case GNU/Linux
+        # Linux-specific settings
+        source (path normalize ~/.config/fish/linux/**/*.fish)
+    case Darwin
+        # macOS-specific settings
+        source (path normalize ~/.config/fish/macos/**/*.fish)
+    case '*'
+        # Other platforms (if any)
+end
+
 # Commands to run in interactive sessions can go here
 if status is-interactive
     # Completion engine

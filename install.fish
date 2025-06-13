@@ -7,7 +7,7 @@ set -l cfg_target fish
 if test -d "$config_dir/$cfg_target"
     echo "Backing up existing config to $backup_dir"
     mkdir -p $backup_dir
-    mv "$config_dir/$cfg_target" "$backup_dir"
+    mv -fi "$config_dir/$cfg_target" "$backup_dir"
 end
 
 # Copy the config directory

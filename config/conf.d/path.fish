@@ -1,3 +1,4 @@
+# Test for Homebrew installation and source if found
 if test -d /opt/homebrew/bin
     # Homebrew on Apple Silicon
     set -gx HOMEBREW_PREFIX /opt/homebrew
