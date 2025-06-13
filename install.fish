@@ -1,16 +1,19 @@
 # Set the config directory
-set -l config_dir (path normalize ~/.config/fish)
+set -l config_dir (path normalize ~/.config)
+set -l backup_dir (path normalize ~/.config.bak)
+set -l cfg_target fish
 
 # Check and backup if needed
-if test -d $config_dir
-    echo "Backing up existing config to fish.bak"
-    mv $config_dir $config_dir.bak
+if test -d "$config_dir/$cfg_target"
+    echo "Backing up existing config to $backup_dir"
+    mkdir -p $backup_dir
+    mv "$config_dir/$cfg_target" "$backup_dir"
 end
 
 # Copy the config directory
-echo "Copying config to $config_dir"
-mkdir -p $config_dir
-cp -r ./config $config_dir
+echo "Copying config to $config_dir/$cfg_target"
+mkdir -p "$config_dir/$cfg_target"
+cp -r ./config/* "$config_dir/$cfg_target"
 
 # Install plugins
 if type -q fisher
