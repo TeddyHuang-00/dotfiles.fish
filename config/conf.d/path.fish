@@ -11,7 +11,7 @@ else if test -d ~/homebrew/bin
 end
 
 if test -n "$HOMEBREW_PREFIX"
-    eval ($HOMEBREW_PREFIX/bin/brew shellenv)
+    $HOMEBREW_PREFIX/bin/brew shellenv | source
 end
 
 # Homebrew
