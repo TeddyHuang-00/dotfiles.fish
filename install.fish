@@ -27,3 +27,7 @@ cat fish_plugins | fisher install
 
 # Set theme
 fish_config theme save "Catppuccin Mocha"
+
+# Success message
+echo "Fish shell configuration installed successfully!"
+exec fish -l
