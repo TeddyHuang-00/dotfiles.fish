@@ -14,7 +14,7 @@ end
 if status is-interactive
     # Completion engine
     if type -q carapace
-        carapace init fish | source
+        carapace _carapace fish | source
     end
 
     # Prompt
