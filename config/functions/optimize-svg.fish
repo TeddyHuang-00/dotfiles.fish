@@ -1,6 +1,4 @@
-function optimize-svg -d "Optimize SVG files"
-    set svg_file $argv[1]
-
+function optimize-svg -d "Optimize SVG files" -a svg_file
     # Check if the file is provided and exists
     if test (count $argv) -ne 1
         echo "Usage: optimize-svg <svg-file>"
