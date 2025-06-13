@@ -13,7 +13,7 @@ end
 # Commands to run in interactive sessions can go here
 if status is-interactive
     # Completion engine
-    if type -q caparace
+    if type -q carapace
         carapace init fish | source
     end
 
