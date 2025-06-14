@@ -18,7 +18,7 @@ if type -q icdiff
 end
 
 if type -q screen
-    alias screen "screen -s fish -U"
+    alias screen "screen -s fish -T xterm-256color -U"
 end
 
 if type -q jaq

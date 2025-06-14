@@ -9,7 +9,7 @@ if test -d "$config_dir/$cfg_target"
     mkdir -p $backup_dir
     if test -d "$backup_dir/$cfg_target"
         read -P "Backup directory already exists. Do you want to remove it? [y/N] " confirm
-        if test "$confirm" = "y" -o "$confirm" = "Y"
+        if test "$confirm" = y -o "$confirm" = Y
             echo "Removing existing backup directory $backup_dir/$cfg_target"
             rm -rf "$backup_dir/$cfg_target"
         else
