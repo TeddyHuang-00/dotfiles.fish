@@ -40,4 +40,5 @@ fish_config theme save "Catppuccin Mocha"
 
 # Success message
 echo "Fish shell configuration installed successfully!"
-exec fish -l
+echo "Reloading shell to apply changes..."
+exec fish
