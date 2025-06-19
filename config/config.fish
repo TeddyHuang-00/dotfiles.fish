@@ -14,6 +14,7 @@ end
 if status is-interactive
     # Completion engine
     if type -q carapace
+        set -gxa CARAPACE_EXCLUDES brew
         carapace _carapace fish | source
     end
 
