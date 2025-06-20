@@ -2,6 +2,7 @@
 set -l config_dir (path normalize ~/.config)
 set -l backup_dir (path normalize ~/.config.bak)
 set -l cfg_target fish
+set -l deps nvim bat starship carapace fzf zoxide uv bun
 
 # Check and backup if needed
 if test -d "$config_dir/$cfg_target"
@@ -40,5 +41,21 @@ fish_config theme save "Catppuccin Mocha"
 
 # Success message
 echo "Fish shell configuration installed successfully!"
+
+# Check for dependencies
+for dep in $deps
+    set -l dep (string trim $dep)
+    if not type -q $dep
+        set -ga missing_deps $dep
+    end
+end
+if test (count $missing_deps) -gt 0
+    echo "Install the dependencies below for full functionality:"
+    for dep in $missing_deps
+        echo " - $dep"
+    end
+end
+
+# Reload the shell to apply changes
 echo "Reloading shell to apply changes..."
 exec fish
