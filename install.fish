@@ -1,20 +1,44 @@
+# Check for necessary tool for running the script
+for tool in git wget
+    if not type -q $tool
+        echo "$tool is not installed, please install it to continue"
+        exit 1
+    end
+end
+
+# Reset the temporary environment variable
+set -gx DOT_FILE_DEPS
+set -gx DOT_FILE_CAVEATS
+
+# Set the source configuration and script directories
+set -g source_dir (path normalize ./config)
+set -g script_dir (path normalize ./script)
+
 # Set the config directory
 set -g config_dir (path normalize ~/.config)
-set -g backup_dir (path normalize ~/.config.bak)
+set -g backup_dir (path normalize ~/.backup/.config)
 
 mkdir -p "$config_dir"
 mkdir -p "$backup_dir"
 
-function _backup_and_copy_config -a cfg_target
+function _pretty_print -a message -a symbol
+    set -l str_len (string length --visible $message)
+    set -l pad_left (math "round ((60 - $str_len) / 2)")
+    set -l pad_right (math "(60 - $str_len) - $pad_left")
+    echo (string repeat -m $pad_left $symbol) $message (string repeat -m $pad_right $symbol)
+end
+
+function _install_config -a cfg_target
     set -l target_path (path normalize "$config_dir/$cfg_target")
+    _pretty_print "Installing $cfg_target" =
 
     # Check and backup if needed
     if test -d "$target_path"
         set -l backup_path (path normalize "$backup_dir/$cfg_target")
 
-        echo "Backing up $target_path to $backup_path"
+        _pretty_print "Backing up" -
         if test -d "$backup_path"
-            read -P "Backup directory already exists. Do you want to remove it? [y/N] " confirm
+            read -P "$backup_path already exists. Do you want to remove it? [y/N] " confirm
             if test "$confirm" = y -o "$confirm" = Y
                 echo "Removing existing backup directory $backup_path"
                 rm -rf "$backup_path"
@@ -27,31 +51,27 @@ function _backup_and_copy_config -a cfg_target
     end
 
     # Copy the config directory
-    echo "Copying config to $target_path"
-    cp -r (path resolve ./config/$cfg_target) "$target_path"
+    if test -d (path resolve $source_dir/$cfg_target)
+        _pretty_print "Copying config" -
+        cp -r (path resolve $source_dir/$cfg_target) "$target_path"
+    end
+
+    # Run the post-install script
+    if test -f "$script_dir/$cfg_target.fish"
+        _pretty_print "Running post-install script" -
+        source "$script_dir/$cfg_target.fish"
+    end
 end
 
-_backup_and_copy_config fish
-
-# Install plugins
-if type -q fisher
-    echo "Using system-wide fisher installation"
-else
-    echo "Installing fisher first"
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+# Shell and prompt
+_install_config fish
 end
-echo "Installing plugins"
-cat fish_plugins | fisher install
 
-# Set theme
-fish_config theme save "Catppuccin Mocha"
-
-# Success message
-echo "Fish shell configuration installed successfully!"
+_pretty_print "Finishing up" =
+_pretty_print Dependencies -
 
 # Check for dependencies
-set -l deps nvim bat starship carapace fzf zoxide uv bun
-
+set -l deps (path sort -u $DOT_FILE_DEPS)
 for dep in $deps
     set -l dep (string trim $dep)
     if not type -q $dep
@@ -64,6 +84,18 @@ if test (count $missing_deps) -gt 0
         echo " - $dep"
     end
 end
+
+_pretty_print Caveats -
+
+if test (count $DOT_FILE_CAVEATS) -gt 0
+    for caveat in $DOT_FILE_CAVEATS
+        echo (set_color blue) "=>" (set_color normal) "$caveat"
+    end
+end
+
+# Reset the temporary environment variable
+set -gx DOT_FILE_DEPS
+set -gx DOT_FILE_CAVEATS
 
 # Reload the shell to apply changes
 echo "Reloading shell to apply changes..."
