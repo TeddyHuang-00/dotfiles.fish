@@ -1,0 +1,11 @@
+font-family = "Maple Mono NF CN"
+font-size = 14
+theme = catppuccin-mocha
+background-opacity = 0.8
+background-blur-radius = 20
+scrollback-limit = 1000000000
+term = xterm-256color
+window-padding-x = 8
+window-padding-y = 4
+window-padding-balance = true
+window-theme = ghostty

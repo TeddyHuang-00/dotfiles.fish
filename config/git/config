@@ -1,0 +1,51 @@
+[include]
+path = ~/.config/delta/themes/catppuccin.gitconfig
+
+[user]
+name = Nan Huang
+email = teddyhuangnan@gmail.com
+
+[alias]
+bc = !bunx better-commits
+
+[filter "lfs"]
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+clean = git-lfs clean -- %f
+
+[init]
+defaultBranch = main
+
+[protocol "file"]
+allow = always
+
+[credential]
+helper = store
+
+[push]
+autoSetupRemote = true
+followTags = true
+
+[pull]
+rebase = true
+
+[fetch]
+prune = true
+
+[core]
+compression = 9
+whitespace = error
+preloadindex = true
+editor = nvim
+
+[pager]
+diff = delta
+
+[interactive]
+diffFilter = delta --color-only
+
+[delta]
+navigate = true
+side-by-side = true
+features = catppuccin-mocha

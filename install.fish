@@ -65,6 +65,31 @@ end
 
 # Shell and prompt
 _install_config fish
+_install_config starship
+
+# VCS and tools
+_install_config jj
+_install_config git
+_install_config delta
+_install_config bat
+
+# Terminal
+_install_config ghostty
+_install_config tmux
+
+# Editor
+_install_config nvim
+
+# Platform specific dotfiles
+switch (uname -o)
+    case GNU/Linux
+        # Linux-specific dotfiles
+        _install_config zathura
+    case Darwin
+        # macOS-specific dotfiles
+        _install_config aerospace
+    case '*'
+        # Other platforms
 end
 
 _pretty_print "Finishing up" =
