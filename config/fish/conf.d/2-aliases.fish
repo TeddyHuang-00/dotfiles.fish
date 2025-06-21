@@ -9,6 +9,11 @@ if type -q logo-ls
     alias lr "ll -R"
 end
 
+if type -q zoxide
+    alias c "z"
+    alias ci "zi"
+end
+
 if type -q btop
     alias top btop
 end

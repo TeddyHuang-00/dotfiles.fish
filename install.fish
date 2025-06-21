@@ -1,30 +1,37 @@
 # Set the config directory
-set -l config_dir (path normalize ~/.config)
-set -l backup_dir (path normalize ~/.config.bak)
-set -l cfg_target fish
-set -l deps nvim bat starship carapace fzf zoxide uv bun
+set -g config_dir (path normalize ~/.config)
+set -g backup_dir (path normalize ~/.config.bak)
 
-# Check and backup if needed
-if test -d "$config_dir/$cfg_target"
-    echo "Backing up existing config to $backup_dir"
-    mkdir -p $backup_dir
-    if test -d "$backup_dir/$cfg_target"
-        read -P "Backup directory already exists. Do you want to remove it? [y/N] " confirm
-        if test "$confirm" = y -o "$confirm" = Y
-            echo "Removing existing backup directory $backup_dir/$cfg_target"
-            rm -rf "$backup_dir/$cfg_target"
-        else
-            echo "Keeping existing backup directory $backup_dir/$cfg_target"
-            exit 1
+mkdir -p "$config_dir"
+mkdir -p "$backup_dir"
+
+function _backup_and_copy_config -a cfg_target
+    set -l target_path (path normalize "$config_dir/$cfg_target")
+
+    # Check and backup if needed
+    if test -d "$target_path"
+        set -l backup_path (path normalize "$backup_dir/$cfg_target")
+
+        echo "Backing up $target_path to $backup_path"
+        if test -d "$backup_path"
+            read -P "Backup directory already exists. Do you want to remove it? [y/N] " confirm
+            if test "$confirm" = y -o "$confirm" = Y
+                echo "Removing existing backup directory $backup_path"
+                rm -rf "$backup_path"
+            else
+                echo "Keeping existing backup directory $backup_path"
+                exit 1
+            end
         end
+        mv -fi "$target_path" "$backup_path"
     end
-    mv -fi "$config_dir/$cfg_target" "$backup_dir"
+
+    # Copy the config directory
+    echo "Copying config to $target_path"
+    cp -r (path resolve ./config/$cfg_target) "$target_path"
 end
 
-# Copy the config directory
-echo "Copying config to $config_dir/$cfg_target"
-mkdir -p "$config_dir/$cfg_target"
-cp -r ./config/* "$config_dir/$cfg_target"
+_backup_and_copy_config fish
 
 # Install plugins
 if type -q fisher
@@ -43,6 +50,8 @@ fish_config theme save "Catppuccin Mocha"
 echo "Fish shell configuration installed successfully!"
 
 # Check for dependencies
+set -l deps nvim bat starship carapace fzf zoxide uv bun
+
 for dep in $deps
     set -l dep (string trim $dep)
     if not type -q $dep
