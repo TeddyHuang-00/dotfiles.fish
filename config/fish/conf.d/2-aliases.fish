@@ -10,8 +10,8 @@ if type -q logo-ls
 end
 
 if type -q zoxide
-    alias c "z"
-    alias ci "zi"
+    alias c z
+    alias ci zi
 end
 
 if type -q btop
@@ -49,4 +49,8 @@ end
 if type -q uv
     alias scour "uvx scour"
     alias rsyncy "uvx rsyncy"
+end
+
+if test -f /Applications/Tailscale.app/Contents/MacOS/Tailscale
+    alias tailscale "/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 end

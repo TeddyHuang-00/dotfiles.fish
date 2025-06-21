@@ -13,3 +13,11 @@ set -gxa CARAPACE_EXCLUDES brew
 
 # Vox settings
 set -gx VOX_VENV_DIR ~/Venv
+
+# Starship setting
+set -gx STARSHIP_CONFIG ~/.config/starship/config.toml
+
+# Hyprland - nvidia compatibility settings
+if type -q hyprland; and test -n "$(lspci | grep -i nvidia)"
+    set -gx WLR_RENDERER_ALLOW_SOFTWARE 1
+end
