@@ -37,13 +37,13 @@ function _pretty_print -a message -a level
     set -l str_len (string length --visible $message)
     set -l pad_left (math "round ((60 - $str_len) / 2)")
     set -l pad_right (math "(60 - $str_len) - $pad_left")
-    (set_color $color)
+    set_color $color
     printf "%s" (string repeat -m $pad_left $symbol)
-    (set_color normal)
+    set_color normal
     printf " %s " $message
-    (set_color $color)
+    set_color $color
     printf "%s" (string repeat -m $pad_right $symbol)
-    (set_color normal)
+    set_color normal
     echo
 end
 
