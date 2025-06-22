@@ -21,22 +21,41 @@ set -g backup_dir (path normalize ~/.backup/.config)
 mkdir -p "$config_dir"
 mkdir -p "$backup_dir"
 
-function _pretty_print -a message -a symbol
+function _pretty_print -a message -a level
+    switch $level
+        case 1
+            set -f symbol =
+            set -f color green
+        case 2
+            set -f symbol -
+            set -f color blue
+        case *
+            set -f symbol " "
+            set -f color normal
+    end
+
     set -l str_len (string length --visible $message)
     set -l pad_left (math "round ((60 - $str_len) / 2)")
     set -l pad_right (math "(60 - $str_len) - $pad_left")
-    echo (string repeat -m $pad_left $symbol) $message (string repeat -m $pad_right $symbol)
+    (set_color $color)
+    printf "%s" (string repeat -m $pad_left $symbol)
+    (set_color normal)
+    printf " %s " $message
+    (set_color $color)
+    printf "%s" (string repeat -m $pad_right $symbol)
+    (set_color normal)
+    echo
 end
 
 function _install_config -a cfg_target
     set -l target_path (path normalize "$config_dir/$cfg_target")
-    _pretty_print "Installing $cfg_target" =
+    _pretty_print "Installing $cfg_target" 1
 
     # Check and backup if needed
     if test -d "$target_path"
         set -l backup_path (path normalize "$backup_dir/$cfg_target")
 
-        _pretty_print "Backing up" -
+        _pretty_print "Backing up" 2
         if test -d "$backup_path"
             read -P "$backup_path already exists. Do you want to remove it? [y/N] " confirm
             if test "$confirm" = y -o "$confirm" = Y
@@ -52,13 +71,13 @@ function _install_config -a cfg_target
 
     # Copy the config directory
     if test -d (path resolve $source_dir/$cfg_target)
-        _pretty_print "Copying config" -
+        _pretty_print "Copying config" 2
         cp -r (path resolve $source_dir/$cfg_target) "$target_path"
     end
 
     # Run the post-install script
     if test -f "$script_dir/$cfg_target.fish"
-        _pretty_print "Running post-install script" -
+        _pretty_print "Running post-install script" 2
         source "$script_dir/$cfg_target.fish"
     end
 end
@@ -92,8 +111,8 @@ switch (uname -o)
         # Other platforms
 end
 
-_pretty_print "Finishing up" =
-_pretty_print Dependencies -
+_pretty_print "Finishing up" 1
+_pretty_print Dependencies 2
 
 # Check for dependencies
 set -l deps (path sort -u $DOT_FILE_DEPS)
@@ -110,7 +129,7 @@ if test (count $missing_deps) -gt 0
     end
 end
 
-_pretty_print Caveats -
+_pretty_print Caveats 2
 
 if test (count $DOT_FILE_CAVEATS) -gt 0
     for caveat in $DOT_FILE_CAVEATS
