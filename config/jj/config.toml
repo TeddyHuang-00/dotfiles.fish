@@ -1,3 +1,7 @@
 [user]
 name = "Nan Huang"
 email = "teddyhuangnan@gmail.com"
+
+[ui]
+pager = "delta"
+diff-formatter = ":git"
