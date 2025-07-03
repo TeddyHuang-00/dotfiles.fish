@@ -10,7 +10,7 @@ echo "Installing plugins"
 echo $plugins | fisher install
 
 # Set theme
-fish_config theme save "Catppuccin Mocha"
+yes | fish_config theme save "Catppuccin Mocha"
 
 # Success message
 echo "Fish shell configuration installed successfully!"
