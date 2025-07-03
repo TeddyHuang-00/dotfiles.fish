@@ -1,5 +1,5 @@
 # Check for necessary tool for running the script
-for tool in git wget
+for tool in git wget gum
     if not type -q $tool
         echo "$tool is not installed, please install it to continue"
         exit 1
@@ -57,8 +57,7 @@ function _install_config -a cfg_target
 
         _pretty_print "Backing up" 2
         if test -d "$backup_path"
-            read -P "$backup_path already exists. Do you want to remove it? [y/N] " confirm
-            if test "$confirm" = y -o "$confirm" = Y
+            if gum confirm "$backup_path already exists. Do you want to remove it?"
                 echo "Removing existing backup directory $backup_path"
                 rm -rf "$backup_path"
             else
@@ -82,33 +81,59 @@ function _install_config -a cfg_target
     end
 end
 
-# Shell and prompt
-_install_config fish
-_install_config starship
+# Let user choose which configurations to install
+_pretty_print "Configuration Selection" 1
 
-# VCS and tools
-_install_config jj
-_install_config git
-_install_config delta
-_install_config bat
+# Create a list of available configurations with descriptions
+set -l config_options "fish (Shell configuration)" \
+    "starship (Prompt configuration)" \
+    "jj (Jujutsu VCS)" \
+    "git (Git configuration)" \
+    "delta (Git diff viewer)" \
+    "bat (Cat replacement)" \
+    "ghostty (Terminal emulator)" \
+    "tmux (Terminal multiplexer)" \
+    "nvim (Neovim editor)"
 
-# Terminal
-_install_config ghostty
-_install_config tmux
-
-# Editor
-_install_config nvim
-
-# Platform specific dotfiles
+# Add platform-specific configs
 switch (uname -o)
     case GNU/Linux
-        # Linux-specific dotfiles
-        _install_config zathura
+        set -a config_options "zathura (PDF viewer)"
     case Darwin
-        # macOS-specific dotfiles
-        _install_config aerospace
-    case '*'
-        # Other platforms
+        set -a config_options "aerospace (Window manager)"
+end
+
+echo "Select the configurations you want to install (use Space to select, Enter to confirm):"
+set -l selected_options (printf "%s\n" $config_options | gum choose --no-limit --header "Available Configurations")
+
+if test (count $selected_options) -eq 0
+    echo "No configurations selected. Exiting."
+    exit 0
+end
+
+# Extract config names from selections (remove descriptions)
+set -l selected_configs
+for option in $selected_options
+    set -l config_name (string split " " $option)[1]
+    set -a selected_configs $config_name
+end
+
+# Show selected configurations and confirm
+echo
+echo "Selected configurations:"
+for config in $selected_configs
+    echo "  • $config"
+end
+echo
+
+if not gum confirm "Do you want to proceed with installing these configurations?"
+    echo "Installation cancelled."
+    exit 0
+end
+
+# Install selected configurations
+for config in $selected_configs
+    _install_config $config
 end
 
 _pretty_print "Finishing up" 1
