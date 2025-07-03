@@ -12,8 +12,5 @@ echo $plugins | fisher install
 # Set theme
 yes | fish_config theme save "Catppuccin Mocha"
 
-# Success message
-echo "Fish shell configuration installed successfully!"
-
 # Export dependency
 set -gxa DOT_FILE_DEPS nvim bat starship carapace fzf zoxide uv bun
