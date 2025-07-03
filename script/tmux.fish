@@ -1,10 +1,10 @@
 # Install TPM
 if test -d ~/.tmux/plugins/tpm
-    echo "TPM is already installed. Removing it for reinstallation."
-    rm -rf ~/.tmux/plugins/tpm
+    echo "TPM is already installed. Skipping..."
+else
+    mkdir -p ~/.tmux/plugins
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 end
-mkdir -p ~/.tmux/plugins
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Update the shell path
 set -l fish_path (which fish)
