@@ -71,6 +71,8 @@ end
 set -l config_options
 set -a config_options "fish (Shell configuration):fish"
 set -a config_options "starship (Prompt configuration):starship"
+set -a config_options "tmux (Terminal multiplexer):tmux"
+set -a config_options "nvim (Neovim editor):nvim"
 set -a config_options "jj (Jujutsu VCS):jj"
 set -a config_options "git (Git configuration):git"
 set -a config_options "delta (Git diff viewer):delta"
@@ -78,8 +80,6 @@ set -a config_options "bat (Cat replacement):bat"
 set -a config_options "fastfetch (System information):fastfetch"
 set -a config_options "tealdeer (CLI documentation):tealdeer"
 set -a config_options "ghostty (Terminal emulator):ghostty"
-set -a config_options "tmux (Terminal multiplexer):tmux"
-set -a config_options "nvim (Neovim editor):nvim"
 
 # Add platform-specific configs
 switch (uname -o)
