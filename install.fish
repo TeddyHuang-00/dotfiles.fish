@@ -146,6 +146,4 @@ end
 set -gx DOT_FILE_DEPS
 set -gx DOT_FILE_CAVEATS
 
-# Reload the shell to apply changes
-gum style $gs_success "Reloading shell to apply changes..."
-exec fish
+gum style $gs_success "All done!" 

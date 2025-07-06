@@ -12,5 +12,7 @@ echo $plugins | fisher install
 # Set theme
 yes | fish_config theme save "Catppuccin Mocha"
 
+set -gxa DOT_FILE_CAVEATS "Start a new fish session or run `exec fish` to apply changes."
+
 # Export dependency
 set -gxa DOT_FILE_DEPS nvim bat starship carapace fzf zoxide uv bun
