@@ -7,3 +7,6 @@
   "-c",
   """jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'""",
 ], show = "interactive" }
+
+[ui]
+theme = "base24-catppuccin-mocha"
