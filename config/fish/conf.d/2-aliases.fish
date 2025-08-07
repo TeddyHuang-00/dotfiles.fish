@@ -44,6 +44,9 @@ end
 
 if type -q bun
     alias svgo "bunx svgo"
+    alias claude-code "bunx @anthropic-ai/claude-code"
+    alias gemini-cli "bunx @google/gemini-cli"
+    alias ccusage "bunx ccusage"
 end
 
 if type -q uv
