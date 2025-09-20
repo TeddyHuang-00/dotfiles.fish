@@ -1,11 +1,5 @@
 set -l config_dir (path resolve ~/.config/ghostty)
 
-# Download the themes
-wget -P "$config_dir" https://github.com/catppuccin/ghostty/raw/main/themes/catppuccin-latte.conf
-wget -P "$config_dir" https://github.com/catppuccin/ghostty/raw/main/themes/catppuccin-frappe.conf
-wget -P "$config_dir" https://github.com/catppuccin/ghostty/raw/main/themes/catppuccin-macchiato.conf
-wget -P "$config_dir" https://github.com/catppuccin/ghostty/raw/main/themes/catppuccin-mocha.conf
-
 # Check if the font is installed
 set -l font_name "Maple Mono NF CN"
 if not type -q fc-list
