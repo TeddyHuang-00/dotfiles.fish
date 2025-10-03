@@ -4,5 +4,20 @@ email = "teddyhuangnan@gmail.com"
 
 [ui]
 pager = "delta"
-diff-formatter = ["delta", "--width", "$width", "$left", "$right"]
+diff-formatter = [
+  "bash",
+  "-c",
+  "delta --features 'split-view catppuccin-mocha' --width $width $left $right || true",
+]
 default-command = "log"
+
+[merge-tools.delta-non-split-view]
+program = "delta"
+diff-args = [
+  "--width",
+  "$width",
+  "--features",
+  "non-split-view catppuccin-mocha",
+  "$left",
+  "$right",
+]

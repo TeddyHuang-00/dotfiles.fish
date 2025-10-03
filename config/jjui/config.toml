@@ -1,12 +1,23 @@
-[custom_commands]
-"delta" = { args = [
-  "util",
-  "exec",
-  "--",
-  "bash",
-  "-c",
-  """jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'""",
-], show = "interactive" }
-
 [ui]
 theme = "base24-catppuccin-mocha"
+
+[preview]
+revision_command = [
+  "show",
+  "--color",
+  "always",
+  "-r",
+  "$change_id",
+  "--config",
+  "ui.diff-formatter=delta-non-split-view",
+]
+file_command = [
+  "diff",
+  "--color",
+  "always",
+  "-r",
+  "$change_id",
+  "$file",
+  "--config",
+  "ui.diff-formatter=delta-non-split-view",
+]

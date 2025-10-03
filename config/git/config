@@ -47,5 +47,11 @@ diffFilter = delta --color-only
 
 [delta]
 navigate = true
+line-numbers = true
+features = catppuccin-mocha split-view
+
+[delta "split-view"]
 side-by-side = true
-features = catppuccin-mocha
+
+[delta "non-split-view"]
+side-by-side = false
