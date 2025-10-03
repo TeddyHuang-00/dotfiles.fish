@@ -5,3 +5,4 @@ email = "teddyhuangnan@gmail.com"
 [ui]
 pager = "delta"
 diff-formatter = ":git"
+default-command = "log"
