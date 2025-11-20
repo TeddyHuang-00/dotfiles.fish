@@ -16,6 +16,8 @@ end
 
 # Homebrew
 set -la paths /opt/homebrew/opt/rustup/bin
+set -la paths /home/linuxbrew/.linuxbrew/opt/rustup/bin
+set -la paths ~/homebrew/opt/rustup/bin
 # Cargo
 set -la paths ~/.cargo/bin
 # Go
