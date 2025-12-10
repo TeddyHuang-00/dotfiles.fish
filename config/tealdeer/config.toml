@@ -36,4 +36,8 @@ use_pager = false
 auto_update = true
 auto_update_interval_hours = 72
 
+[search]
+languages = ["zh", "en"]
+platforms = ["current", "common", "all"]
+
 [directories]
