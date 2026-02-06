@@ -1,7 +1,7 @@
 set -l config_dir (path resolve ~/.config/ghostty)
 
 # Fetch the custom shader
-wget -O "$config_dir/cursor_blaze.glsl" "https://raw.githubusercontent.com/hackr-sh/ghostty-shaders/refs/heads/main/cursor_blaze.glsl"
+git clone https://github.com/sahaj-b/ghostty-cursor-shaders $config_dir/shaders
 
 # Check if the font is installed
 set -l font_name "Maple Mono NF CN"
