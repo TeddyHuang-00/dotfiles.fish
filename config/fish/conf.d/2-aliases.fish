@@ -54,6 +54,10 @@ if type -q uv
     alias rsyncy "uvx rsyncy"
 end
 
+if type -q anyzig
+    alias zig anyzig
+end
+
 if test -f /Applications/Tailscale.app/Contents/MacOS/Tailscale
     alias tailscale "/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 end
