@@ -10,3 +10,4 @@ window-padding-y = 4
 window-padding-balance = true
 window-theme = ghostty
 custom-shader = shaders/cursor_sweep.glsl
+custom-shader-animation = always
