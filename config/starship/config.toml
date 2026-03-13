@@ -19,6 +19,7 @@ $git_branch\
 $git_commit\
 $git_state\
 $git_status\
+${custom.jujutsu}\
 $docker_context\
 $package\
 $bun\
@@ -209,6 +210,18 @@ show_always = true
 style_user = "bold blue"
 style_root = "bold red"
 format = "[ $user]($style) "
+
+[custom.jujutsu]
+description = "Jujutsu VCS"
+command = """
+    jj log 2>/dev/null --no-graph --ignore-working-copy --color=always --revisions @ \
+        --template '
+            separate(" ",
+                if(conflict, label("conflict", "×")),
+            )
+        '
+    """
+detect_folders = [".jj"]
 
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
