@@ -9,10 +9,11 @@ end
 echo "Installing plugins"
 echo $plugins | fisher install
 
-# Set theme
-yes | fish_config theme save "Catppuccin Mocha"
+# Set theme (This no longer works as it gives an error about $fish_terminal_color_theme not being initialized)
+# yes | fish_config theme save catppuccin-mocha
 
 set -gxa DOT_FILE_CAVEATS "Start a new fish session or run `exec fish` to apply changes."
+set -gxa DOT_FILE_CAVEATS "Run `fish_config theme save catppuccin-mocha` to set the theme for your terminal."
 
 # Export dependency
 set -gxa DOT_FILE_DEPS nvim bat starship carapace fzf zoxide uv bun
