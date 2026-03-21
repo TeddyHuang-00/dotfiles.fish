@@ -10,7 +10,6 @@ if type -q logo-ls
 end
 
 if type -q zoxide
-    zoxide init fish | source
     alias c z
     alias ci zi
 end
