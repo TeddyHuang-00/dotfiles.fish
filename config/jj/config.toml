@@ -2,14 +2,15 @@
 name = "Nan Huang"
 email = "teddyhuangnan@gmail.com"
 
-[ui]
-pager = "delta"
-diff-formatter = [
-  "bash",
-  "-c",
-  "delta --features 'split-view catppuccin-mocha' --width $width $left $right || true",
-]
-default-command = "log"
+[[--scope]]
+--when.commands = ["status"]
+[--scope.ui]
+paginate = "never"
+[[--scope]]
+--when.commands = ["diff", "show"]
+[--scope.ui]
+pager = "diffnav"
+diff-formatter = ":git"
 
 [merge-tools.delta-non-split-view]
 program = "delta"
@@ -21,3 +22,6 @@ diff-args = [
   "$left",
   "$right",
 ]
+
+[ui]
+default-command = "log"
