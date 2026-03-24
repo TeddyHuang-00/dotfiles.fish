@@ -21,3 +21,29 @@ file_command = [
   "--config",
   "ui.diff-formatter=delta-non-split-view",
 ]
+
+[[actions]]
+name = "revisions-diffnav"
+desc = "diff"
+lua = '''
+jj_interactive("diff", "--color", "always", "-r", context.change_id(), "--config", "ui.pager=diffnav")
+'''
+
+[[actions]]
+name = "revisions-details-diffnav"
+desc = "diff"
+lua = '''
+jj_interactive("diff", "--color", "always", "-r", context.change_id(), context.file(), "--config", "ui.pager=diffnav")
+'''
+
+[[bindings]]
+action = "revisions-diffnav"
+key = "d"
+scope = "revisions"
+desc = "diff"
+
+[[bindings]]
+action = "revisions-details-diffnav"
+key = "d"
+scope = "revisions.details"
+desc = "diff"

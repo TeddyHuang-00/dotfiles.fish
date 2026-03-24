@@ -9,10 +9,14 @@ wget -P "$config_dir/themes" https://github.com/vic/tinted-jjui/raw/main/themes/
 wget -P "$config_dir/themes" https://github.com/vic/tinted-jjui/raw/main/themes/base24-catppuccin-macchiato.toml
 wget -P "$config_dir/themes" https://github.com/vic/tinted-jjui/raw/main/themes/base24-catppuccin-mocha.toml
 
-# Check if delta is installed
+# Check if key dependencies are installed
 if not type -q delta
     set -gxa DOT_FILE_CAVEATS "delta is not installed, please install it to make sure the custom diff works"
 end
 
+if not type -q diffnav
+    set -gxa DOT_FILE_CAVEATS "diffnav is not installed, please install it to make sure the custom diff works"
+end
+
 # Export dependency
-set -gxa DOT_FILE_DEPS jjui delta
+set -gxa DOT_FILE_DEPS jj jjui delta diffnav
