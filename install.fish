@@ -147,4 +147,4 @@ end
 set -gx DOT_FILE_DEPS
 set -gx DOT_FILE_CAVEATS
 
-gum style $gs_success "All done!" 
+gum style $gs_success "All done!"
