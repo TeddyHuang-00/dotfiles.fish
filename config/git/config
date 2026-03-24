@@ -40,18 +40,18 @@ preloadindex = true
 editor = nvim
 
 [pager]
-diff = delta
+diff = diffnav
 
 [interactive]
-diffFilter = delta --color-only
+diffFilter = diffnav
 
 [delta]
 navigate = true
-line-numbers = true
-features = catppuccin-mocha split-view
+features = catppuccin-mocha
+
+[delta "non-split-view"]
+side-by-side = false
 
 [delta "split-view"]
 side-by-side = true
 
-[delta "non-split-view"]
-side-by-side = false
