@@ -26,12 +26,12 @@ file_command = [
 name = "revisions.diff"
 desc = "diff"
 lua = '''
-jj_interactive("diff", "--color", "always", "-r", context.change_id(), "--config", "ui.pager=diffnav")
+jj_interactive("diff", "-r", context.change_id(), "--config", "ui.pager=diffnav")
 '''
 
 [[actions]]
 name = "revisions.details.diff"
 desc = "diff"
 lua = '''
-jj_interactive("diff", "--color", "always", "-r", context.change_id(), context.file(), "--config", "ui.pager=diffnav")
+jj_interactive("diff", "-r", context.change_id(), context.file(), "--config", "ui.pager=diffnav")
 '''
