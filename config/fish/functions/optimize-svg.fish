@@ -28,7 +28,7 @@ function optimize-svg -d "Optimize SVG files" -a svg_file
     end
 
     # Create a temporary directory for processing
-    set temp_dir (mktemp -d -t optimize-svg)
+    set temp_dir (mktemp -d -t optimize-svg.XXXX)
     set temp_svg_file "$temp_dir/$svg_file"
     # First pass
     scour "$svg_file" "$temp_svg_file" --enable-id-stripping --shorten-ids
