@@ -14,6 +14,8 @@ if test -n "$HOMEBREW_PREFIX"
     $HOMEBREW_PREFIX/bin/brew shellenv | source
 end
 
+# CUDA
+set -la paths /opt/cuda/bin
 # Homebrew
 set -la paths /opt/homebrew/opt/rustup/bin
 set -la paths /home/linuxbrew/.linuxbrew/opt/rustup/bin
