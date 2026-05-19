@@ -4,10 +4,12 @@ email = "teddyhuangnan@gmail.com"
 
 [[--scope]]
 --when.commands = ["status"]
+--when.environments = ["JJUI"]
 [--scope.ui]
 paginate = "never"
 [[--scope]]
 --when.commands = ["diff", "show"]
+--when.environments = ["JJUI"]
 [--scope.ui]
 pager = "diffnav"
 diff-formatter = ":git"
