@@ -4,7 +4,8 @@ set -gx fish_greeting
 # Common options
 set -gx EDITOR nvim
 set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
-set -gx TERM xterm-256color
+# Enable the following if this is a host that doesn't recognize the terminal type correctly
+# set -gx TERM xterm-256color
 
 # Carapace settings
 set -gx CARAPACE_BRIDGES 'zsh,fish,bash,clap,inshellisense'
